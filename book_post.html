@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTMLファイルからPOSTでJSONデータを送信する</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $("#response").html("Response Values");
+
+        $("#button").click( function(){
+            var url = $("#url_post").val();
+
+                var JSONdata = {
+                    "isbn": $("#sibn").val(),
+                    "book_name": $("#book_name").val(),
+                    "author": $("#author").val()
+                };
+
+            alert(JSON.stringify(JSONdata));
+
+            $.ajax({
+                type : 'post',
+                url : url,
+                data : JSON.stringify(JSONdata),
+                contentType: 'application/JSON',
+                dataType : 'JSON',
+                scriptCharset: 'utf-8',
+                success : function(data) {
+
+                    // Success
+                    alert("success");
+                    alert(JSON.stringify(data));
+                    $("#response").html(JSON.stringify(data));
+                },
+                error : function(data) {
+
+                    // Error
+                    alert("error");
+                    alert(JSON.stringify(data));
+                    $("#response").html(JSON.stringify(data));
+                }
+            });
+        })
+    })
+</script>
+
+</head>
+<body>
+    <h1>HTMLファイルからPOSTでJSONデータを送信する</h1>
+    <p>URL: <input type="text" id="url_post" name="url" size="100" value="./json/Book.json"></p>
+    <p>ISBN: <input type="text" id="isbn" size="30" value="6666"></p>
+    <p>Book Name: <input type="text" id="book_name" size="30" value="aaaa"></p>
+    <p>Author: <input type="text" id="author" size="30" value="kiiiki huhuhu"></p>
+    <p><button id="button" type="button">submit</button></p>
+    <textarea id="response" cols=120 rows=10 disabled></textarea>
+</body>
+</html>
