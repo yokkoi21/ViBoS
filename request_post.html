@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ViBoS</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="css/Library.css"/>
+
+	<script type="text/javascript" src="js/base.js"></script>
+
+	<!-- <script type="text/javascript" src="js/footerFixed.js"></script> -->
+
+	<header>
+		<div id="logo">
+			<a href="#"><img src="img/ViBoS.png" alt="" width="229.5px" height="100px"></a>
+		</div>
+
+		<nav id="GlobalNavi">
+			<ul>
+				<li id="navi0"><a href="./Index.html">Top</a></li>
+				<li id="navi0"><a href="./Library.html">Library</a></li>
+				<li id="navi1"><a href="./Request.html">Request</a></li>
+				<li id="navi0"><a href="./Opinion.html">Opinion</a></li>
+				<li id="navi0"><a href="./Info.html">Info</a></li>
+			</ul>
+		</nav>
+	</header>
+<meta charset="UTF-8">
+<title>Request input page</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $("#response").html("Response Values");
+
+        $("#button").click( function(){
+            var url = $("#url_post").val();
+
+                var JSONdata = {
+                  "faculty": $("#faculty").val(),
+                    "isbn": $("#isbn").val(),
+                    "title": $("#title").val(),
+										"author": $("#author").val()
+                };
+
+            alert(JSON.stringify(JSONdata));
+
+            $.ajax({
+                type : 'post',
+                url : url,
+                data : JSON.stringify(JSONdata),
+                contentType: 'application/JSON',
+                dataType : 'JSON',
+                scriptCharset: 'utf-8',
+
+            }).done(function(data){
+              // Success
+              alert("success");
+              alert(JSON.stringify(data));
+              $("#response").html(JSON.stringify(data));
+            })
+        })
+    })
+</script>
+
+</head>
+<body>
+    <h1>Request input page</h1>
+    <p>URL:<input type="text" id="url_post" name="url" size="100" value="upload_request.php"></p>
+    <p>Faculty: <input type="text" id="faculty" size="30" value="6666"></p>
+    <p>ISBN: <input type="text" id="isbn" size="30" value="6666"></p>
+    <p>Title: <input type="text" id="title" size="30" value="6666"></p>
+		<p>Name: <input type="text" id="name" size="30" value="6666"></p>
+    <p><button id="button" type="button">submit</button></p>
+		<div class="button">
+			<a class="button-up" href="Request.html">一覧に戻る</a>
+		</div>
+</body>
+</html>
